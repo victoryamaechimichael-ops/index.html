@@ -1,0 +1,621 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Nursing Informatics Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;700&family=Libre+Franklin:wght@400;600;700&family=Newsreader:wght@400;500;600&display=swap">
+<style>
+/* Layout: one column, phone first. A contents-page home, one question per screen, a fixed Next bar at the bottom. */
+:root{
+  --paper:#F8F7FC;
+  --paper-2:#ECE8F6;
+  --ink:#14101F;
+  --ink-2:#4B4561;
+  --accent:#3D1C8F;
+  --on-accent:#FFFFFF;
+  --good:#0B6E45;
+  --good-bg:#DFF3E8;
+  --bad:#AE1C2D;
+  --bad-bg:#FBE3E6;
+  --f-display:'Bodoni Moda','Didot','Bodoni 72','Times New Roman',serif;
+  --f-body:'Newsreader','Iowan Old Style',Georgia,serif;
+  --f-ui:'Libre Franklin','Helvetica Neue',Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0B1A;
+    --paper-2:#1C1632;
+    --ink:#F3F0FB;
+    --ink-2:#B4ADCB;
+    --accent:#BBA6FF;
+    --on-accent:#0F0B1A;
+    --good:#5ED59B;
+    --good-bg:#11382A;
+    --bad:#FF8F9B;
+    --bad-bg:#431620;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0B1A;
+  --paper-2:#1C1632;
+  --ink:#F3F0FB;
+  --ink-2:#B4ADCB;
+  --accent:#BBA6FF;
+  --on-accent:#0F0B1A;
+  --good:#5ED59B;
+  --good-bg:#11382A;
+  --bad:#FF8F9B;
+  --bad-bg:#431620;
+  color-scheme:dark;
+}
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:18px;
+  line-height:1.5;
+  -webkit-text-size-adjust:100%;
+}
+*,*::before,*::after{box-sizing:border-box}
+button{font-family:inherit;color:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.app{max-width:600px;margin:0 auto;padding-inline:20px;padding-block:0 48px}
+.app.has-dock{padding-bottom:132px}
+
+.eyebrow{font:600 12px/1.4 var(--f-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0}
+.lab{font:600 11px/1.4 var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:0 0 6px;display:block}
+
+/* Home */
+.masthead{padding-top:28px;display:grid;gap:14px}
+.masthead h1{font:700 clamp(46px,14vw,76px)/.95 var(--f-display);letter-spacing:-.01em;margin:0;text-wrap:balance}
+.deck{margin:0;color:var(--ink-2);max-width:34ch}
+.rule{border-top:4px solid var(--ink);margin-top:24px}
+.toc{list-style:none;margin:0;padding:0}
+.toc li{border-bottom:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:60px minmax(0,1fr);align-items:center;gap:6px;width:100%;min-height:84px;padding:14px 0;background:none;border:0;text-align:left;cursor:pointer}
+.row:active{background:var(--paper-2)}
+.glyph{font:700 40px/1 var(--f-display);color:var(--accent);text-align:center}
+.glyph.sm{font-size:28px}
+.rt{display:grid;gap:2px;min-width:0}
+.rt .t{font:600 21px/1.2 var(--f-body)}
+.rt .s{font:400 13px/1.4 var(--f-ui);color:var(--ink-2)}
+.rt .b{font:600 12px/1.4 var(--f-ui);letter-spacing:.04em;color:var(--accent)}
+.switch-row{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:76px;padding:14px 0;background:none;border:0;border-bottom:1px solid var(--ink);text-align:left;cursor:pointer}
+.switch-row .st{display:grid;gap:2px}
+.switch-row b{font:600 18px/1.2 var(--f-body)}
+.switch-row small{font:400 13px/1.4 var(--f-ui);color:var(--ink-2)}
+.sw{flex:none;width:50px;height:30px;border:2px solid var(--ink);border-radius:15px;position:relative}
+.sw i{position:absolute;top:4px;left:4px;width:18px;height:18px;border-radius:50%;background:var(--ink)}
+.switch-row[aria-checked="true"] .sw{background:var(--accent);border-color:var(--accent)}
+.switch-row[aria-checked="true"] .sw i{left:24px;background:var(--on-accent)}
+.panel{background:var(--paper-2);padding:18px;margin-top:24px;border-radius:2px}
+.panel h3{font:700 24px/1.1 var(--f-display);margin:0 0 8px}
+.panel p{margin:0}
+.panel ul{margin:0;padding-left:20px;display:grid;gap:6px}
+
+/* Quiz */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:2px solid var(--ink)}
+.topbar .in{max-width:600px;margin:0 auto;padding:4px 20px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+.exit{justify-self:start;min-height:44px;padding:0;background:none;border:0;font:700 12px var(--f-ui);letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.count{font:600 12px var(--f-ui);letter-spacing:.06em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+.score{justify-self:end;font:600 12px var(--f-ui);letter-spacing:.06em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+.progress{height:4px;background:var(--paper-2)}
+.progress i{display:block;height:100%;background:var(--accent);transition:width .3s ease}
+.qhead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding-top:22px}
+.num{font:700 68px/.85 var(--f-display);color:var(--accent);font-variant-numeric:lining-nums tabular-nums}
+.meta{display:grid;gap:2px;text-align:right;font:600 11px/1.4 var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.q{font:500 clamp(22px,6vw,26px)/1.3 var(--f-body);margin:14px 0 20px;text-wrap:pretty}
+.blank{display:inline-block;min-width:6ch;border-bottom:2px solid var(--ink);text-align:center;color:var(--accent);font-weight:600;padding-inline:4px}
+.opts{display:grid;gap:10px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{display:grid;grid-template-columns:30px minmax(0,1fr);align-items:start;gap:12px;width:100%;min-height:58px;padding:13px 14px;text-align:left;background:var(--paper);border:1.5px solid var(--ink);border-radius:2px;font:400 18px/1.3 var(--f-body);cursor:pointer}
+.opt:active{background:var(--paper-2)}
+.ltr{font:700 24px/1 var(--f-display);color:var(--accent)}
+.opt .body{display:grid;gap:4px;min-width:0}
+.tag{font:700 10px/1.2 var(--f-ui);letter-spacing:.12em;text-transform:uppercase}
+.tag:empty{display:none}
+.opt.tf{grid-template-columns:1fr;justify-items:center;text-align:center;align-content:center;min-height:92px}
+.opt.tf .ltr{display:none}
+.opt.tf .txt{font:700 30px/1 var(--f-display)}
+.opt.tf .body{justify-items:center}
+.opt.is-correct{border-color:var(--good);background:var(--good-bg)}
+.opt.is-correct .tag{color:var(--good)}
+.opt.is-wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.is-wrong .tag{color:var(--bad)}
+.opt.is-dim{opacity:.6}
+.fb{margin-top:24px;border-top:3px solid var(--good);padding-top:14px;scroll-margin-bottom:110px}
+.fb.bad{border-top-color:var(--bad)}
+.verdict{font:700 30px/1.1 var(--f-display);margin:0 0 10px;color:var(--good)}
+.fb.bad .verdict{color:var(--bad)}
+.right{margin:0 0 10px;font-weight:600}
+.why{margin:0 0 10px}
+.ref{margin:0;font:500 12px/1.5 var(--f-ui);letter-spacing:.03em;color:var(--ink-2)}
+
+textarea{display:block;width:100%;min-height:150px;padding:12px 14px;background:var(--paper);color:var(--ink);border:1.5px solid var(--ink);border-radius:2px;font:400 18px/1.4 var(--f-body);resize:vertical}
+textarea[readonly]{background:var(--paper-2)}
+.gap{margin-top:16px}
+.mark{margin-top:22px;scroll-margin-bottom:110px}
+.model{background:var(--paper-2);padding:14px;margin:0 0 20px;border-radius:2px}
+.pts{display:grid;border-top:1px solid var(--ink)}
+.pt{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:start;width:100%;min-height:58px;padding:13px 0;text-align:left;background:none;border:0;border-bottom:1px solid var(--ink);font:400 17px/1.35 var(--f-body);cursor:pointer}
+.box{width:24px;height:24px;border:2px solid var(--ink);border-radius:2px;position:relative;margin-top:1px}
+.pt[aria-pressed="true"] .box{background:var(--good);border-color:var(--good)}
+.pt[aria-pressed="true"] .box::after{content:"";position:absolute;left:6px;top:1px;width:6px;height:12px;border:solid var(--paper);border-width:0 3px 3px 0;transform:rotate(45deg)}
+.tally{margin:14px 0 0;font:600 14px var(--f-ui);font-variant-numeric:tabular-nums}
+.tally b{font:700 28px var(--f-display);color:var(--accent);padding-inline:4px}
+
+.btn{display:block;width:100%;min-height:56px;padding:0 16px;background:var(--accent);color:var(--on-accent);border:1.5px solid var(--accent);border-radius:2px;font:700 14px var(--f-ui);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--paper);border-top:2px solid var(--ink);padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px))}
+.dock .in{max-width:600px;margin:0 auto}
+
+/* Results */
+.res{padding-top:26px;display:grid;gap:6px}
+.bignum{display:flex;align-items:baseline;gap:12px;margin-top:6px}
+.bignum .n{font:700 clamp(110px,36vw,170px)/.85 var(--f-display);color:var(--accent);font-variant-numeric:lining-nums tabular-nums}
+.bignum .of{font:500 30px var(--f-display);font-variant-numeric:lining-nums}
+.pct{font:600 14px var(--f-ui);letter-spacing:.1em;text-transform:uppercase;margin:6px 0 0}
+.vline{font:500 21px/1.35 var(--f-body);margin:10px 0 0;text-wrap:pretty}
+.res h3{font:700 26px/1.1 var(--f-display);margin:34px 0 10px}
+.bars{list-style:none;margin:0;padding:0;border-top:4px solid var(--ink)}
+.bar-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;padding:12px 0;border-bottom:1px solid var(--ink)}
+.bl{font:500 17px/1.3 var(--f-body)}
+.bv{font:700 16px var(--f-ui);font-variant-numeric:tabular-nums}
+.track{grid-column:1/-1;height:8px;background:var(--paper-2)}
+.track i{display:block;height:100%;background:var(--accent)}
+.miss{list-style:none;margin:0;padding:0;border-top:4px solid var(--ink)}
+.miss li{padding:16px 0;border-bottom:1px solid var(--ink);display:grid;gap:8px}
+.miss p{margin:0}
+.mq{font-weight:500}
+.you{color:var(--bad)}
+.ok{color:var(--good)}
+.you .lab,.ok .lab{color:inherit;margin:0 0 2px}
+.actions{display:grid;gap:10px;margin-top:30px}
+.clean{padding:16px 0;font:500 20px var(--f-body)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div id="root"></div>
+
+<script>
+(function(){
+'use strict';
+
+var SEC={
+  A:{name:'Multiple choice'},
+  B:{name:'True or false'},
+  C:{name:'Fill in the blank'},
+  D:{name:'Short answers'}
+};
+
+var mc=function(id,q,opts,ans,why,ref){return{id:id,sec:'A',type:'mc',q:q,opts:opts,ans:ans,why:why,ref:ref};};
+var tf=function(id,q,isTrue,why,ref){return{id:id,sec:'B',type:'tf',q:q,opts:['True','False'],ans:isTrue?0:1,why:why,ref:ref};};
+var fill=function(id,q,opts,why,ref){return{id:id,sec:'C',type:'fill',q:q,opts:opts,ans:0,why:why,ref:ref};};
+var sa=function(id,q,model,points,ref){return{id:id,sec:'D',type:'short',q:q,model:model,points:points,ref:ref};};
+
+var BANK=[
+  /* Section A: multiple choice */
+  mc('A1','Nursing informatics combines nursing science with what?',
+    ['Law and politics','Information management and analytical sciences','Pharmacy and chemistry','Sports science'],1,
+    'Nursing informatics joins nursing science with information management and analytical sciences. The goal is better health for individuals and communities.',
+    'Introduction to Nursing Informatics'),
+  mc('A2','What does EHR stand for?',
+    ['Emergency Health Report','Electronic Hospital Room','Electronic Health Records','Evidence Health Registry'],2,
+    'EHR means Electronic Health Records. They are digital versions of patients’ paper charts.',
+    'Health informatics systems, component 1'),
+  mc('A3','Which component is about collecting health data accurately and storing it securely?',
+    ['Telehealth','Data Management','Quality Improvement','Mobile Health'],1,
+    'Data Management is about collecting health data accurately, storing it securely and using it properly to inform clinical decisions.',
+    'Key components of nursing informatics, 1'),
+  mc('A4','What is the difference between nursing informatics and health informatics?',
+    ['Nursing informatics is nursing oriented, health informatics is general','Nursing informatics is general, health informatics is nursing oriented','They are exactly the same','Health informatics is only for doctors'],0,
+    'Nursing informatics is nursing oriented. Health informatics is general. This is in your NOTE box.',
+    'Your NOTE box'),
+  mc('A5','What does CDSS stand for?',
+    ['Clinical Data Storage System','Clinical Decision Support Systems','Care Delivery Support Service','Computerized Drug Safety System'],1,
+    'CDSS means Clinical Decision Support Systems. They give reminders, alerts and clinical guidelines that support nursing decisions at the point of care.',
+    'Health informatics systems, component 2'),
+  mc('A6','Which platform lets nurses give remote care, especially in underserved areas?',
+    ['Telehealth platforms','Patient management systems','Paper charts','Reporting tools'],0,
+    'Telehealth platforms let nurses give care from a distance. They improve access to health services where people are underserved.',
+    'Health informatics systems, component 3'),
+  mc('A7','Which component helps patients take an active role in their own healthcare?',
+    ['Technology Integration','Quality Improvement','Patient-Centered Care','Data Management'],2,
+    'Patient-Centered Care uses data and technology to improve patient engagement and education. Patients can then take an active role in their healthcare.',
+    'Key components of nursing informatics, 3'),
+  mc('A8','Patient Management Systems streamline workflow from what to what?',
+    ['Diagnosis to surgery','Admission to discharge','Birth to death','Triage to pharmacy'],1,
+    'These systems track patient progress and manage care schedules. They streamline workflow from admission to discharge.',
+    'Health informatics systems, component 4'),
+  mc('A9','Which benefit comes from reducing medication errors and improving record accuracy?',
+    ['Better communication','Enhanced efficiency','Improved patient safety','Data-driven decision making'],2,
+    'Fewer medication errors and more accurate patient records make care safer. That is called improved patient safety.',
+    'Benefits of health informatic systems, first point'),
+  mc('A10','Which tool lets nurses access patient information and communicate with colleagues on the go?',
+    ['Mobile health applications','Paper charts','Patient management systems','Reporting tools'],0,
+    'Mobile health applications let nurses reach patient information, talk to colleagues and give education while they move around.',
+    'Health informatics systems, component 6'),
+
+  /* Section B: true or false */
+  tf('B1','Nursing informatics is an old field that stopped changing years ago.',false,
+    'Your notes call it an emerging field. It keeps growing as hospitals adopt EHRs, telehealth and digital tools.',
+    'Introduction to Nursing Informatics'),
+  tf('B2','Nursing informatics is nursing oriented, while health informatics is general.',true,
+    'That is the difference in your NOTE box. Nursing informatics is nursing oriented. Health informatics is general.',
+    'Your NOTE box'),
+  tf('B3','EHRs are digital versions of patients’ paper charts.',true,
+    'EHRs give a full, real-time view of patient health data in digital form.',
+    'Health informatics systems, component 1'),
+  tf('B4','An EHR can include allergies, immunization dates and test results.',true,
+    'EHRs hold medical history, treatment plans, medications, immunization dates, allergies and test results.',
+    'Health informatics systems, component 1'),
+  tf('B5','CDSS gives nurses reminders, alerts and clinical guidelines at the point of care.',true,
+    'CDSS delivers evidence-based knowledge in the form of reminders, alerts and clinical guidelines.',
+    'Health informatics systems, component 2'),
+  tf('B6','Telehealth platforms only work for patients who are inside the hospital.',false,
+    'Telehealth is for remote care. It helps patients who are far away, especially in underserved areas.',
+    'Health informatics systems, component 3'),
+  tf('B7','Patient management systems help streamline workflow from admission to discharge.',true,
+    'They track patient progress and manage care schedules, so the right data is there for effective patient management.',
+    'Health informatics systems, component 4'),
+  tf('B8','Health informatics systems are meant to increase the administrative work of nurses.',false,
+    'It is the opposite. Streamlined workflows reduce administrative burdens, so nurses spend more time with patients.',
+    'Benefits, enhanced efficiency'),
+  tf('B9','Data analytics and reporting tools help nurses find areas to improve in care delivery.',true,
+    'These tools assess patient outcomes, monitor trends and identify areas for improvement.',
+    'Health informatics systems, component 5'),
+  tf('B10','Interdisciplinary collaboration means nurses should work alone.',false,
+    'It means many healthcare professionals work together. This gives a shared understanding of patient needs and better care coordination.',
+    'Key components of nursing informatics, 4'),
+
+  /* Section C: fill in the blank (correct answer is always listed first, then shuffled) */
+  fill('C1','Nursing informatics is an ___ field that joins nursing science with information management.',
+    ['emerging','declining','outdated','unregulated'],
+    'Your notes open with the words “an emerging field”.',
+    'Introduction to Nursing Informatics'),
+  fill('C2','Data management means health data is collected accurately, stored ___ and used appropriately.',
+    ['securely','openly','cheaply','quickly'],
+    'Health data must be stored securely. It holds private patient information.',
+    'Key components of nursing informatics, 1'),
+  fill('C3','EHR stands for Electronic Health ___.',
+    ['Records','Rooms','Reports','Registers'],
+    'EHR is Electronic Health Records. Mrs Eko said she would ask acronyms, so know this one.',
+    'Health informatics systems, component 1'),
+  fill('C4','CDSS stands for Clinical Decision ___ Systems.',
+    ['Support','Storage','Safety','Service'],
+    'CDSS is Clinical Decision Support Systems. Another acronym to know for Mrs Eko.',
+    'Health informatics systems, component 2'),
+  fill('C5','Telehealth helps nurses extend their reach and maintain ___ of care.',
+    ['continuity','secrecy','speed','cost'],
+    'Telehealth supports virtual consultations and remote monitoring, so care can continue without a visit.',
+    'Health informatics systems, component 3'),
+  fill('C6','Patient management systems streamline workflows from admission to ___.',
+    ['discharge','surgery','triage','payment'],
+    'They cover the whole stay, from admission to discharge.',
+    'Health informatics systems, component 4'),
+  fill('C7','Mobile health applications let nurses get patient information and give education ___.',
+    ['on the go','once a week','only at the desk','after discharge'],
+    'They support flexibility, so nurses can respond quickly to patient needs.',
+    'Health informatics systems, component 6'),
+  fill('C8','Informatics systems improve patient safety by reducing medication ___.',
+    ['errors','costs','charts','visits'],
+    'Fewer medication errors and more accurate records contribute to safer care.',
+    'Benefits, improved patient safety'),
+  fill('C9','Streamlined workflows reduce ___ burdens, so nurses spend more time with patients.',
+    ['administrative','physical','financial','emotional'],
+    'Less paperwork and admin means more time for patient care.',
+    'Benefits, enhanced efficiency'),
+  fill('C10','Data-driven decision making lets nurses make ___-based decisions.',
+    ['evidence','opinion','habit','luck'],
+    'Nurses use data analytics to make evidence-based decisions. This improves clinical outcomes and resource use.',
+    'Benefits, data-driven decision making'),
+
+  /* Section D: short answers, 2 marks each */
+  sa('D1','What is nursing informatics?',
+    'Nursing informatics is an emerging field that integrates nursing science with information management and analytical sciences. It helps to optimize the health of individuals and communities.',
+    ['Says it joins nursing science with information management and analytical sciences','Says its aim is better health for individuals and communities (or it supports nursing practice and patient care)'],
+    'Introduction to Nursing Informatics'),
+  sa('D2','State the difference between nursing informatics and health informatics.',
+    'Nursing informatics is nursing oriented. Health informatics is general.',
+    ['Says nursing informatics is nursing oriented','Says health informatics is general'],
+    'Your NOTE box'),
+  sa('D3','What is an EHR? Name two things it contains.',
+    'An EHR (Electronic Health Record) is the digital version of a patient’s paper chart. It gives a comprehensive, real-time view of patient health data. It contains things like medical history, treatment plans, medications, immunization dates, allergies and test results.',
+    ['Says it is the digital version of a patient’s paper chart','Names any two contents: medical history, treatment plans, medications, immunization dates, allergies, test results'],
+    'Health informatics systems, component 1'),
+  sa('D4','Give two benefits of health informatics systems in nursing.',
+    'Any two of these: improved patient safety, enhanced efficiency, better communication, data-driven decision making.',
+    ['Gives one correct benefit','Gives a second correct benefit'],
+    'Benefits of health informatic systems in nursing'),
+  sa('D5','What does a CDSS do for nurses?',
+    'A CDSS (Clinical Decision Support System) delivers evidence-based knowledge as reminders, alerts and clinical guidelines. It supports nursing decisions at the point of care, helps reduce errors and improves patient outcomes.',
+    ['Says it gives evidence-based knowledge as reminders, alerts and clinical guidelines','Says it supports decisions at the point of care to reduce errors and improve outcomes'],
+    'Health informatics systems, component 2')
+];
+
+var MODES=[
+  {id:'full',glyph:'All',title:'Full test',secs:['A','B','C','D'],sub:'Sections A to D, in one go.'},
+  {id:'A',glyph:'A',title:'Multiple choice',secs:['A'],sub:'Tap the best answer.'},
+  {id:'B',glyph:'B',title:'True or false',secs:['B'],sub:'Tap True or False.'},
+  {id:'C',glyph:'C',title:'Fill in the blank',secs:['C'],sub:'Tap the word that fits.'},
+  {id:'D',glyph:'D',title:'Short answers',secs:['D'],sub:'You mark yourself with a checklist.'},
+  {id:'drill',glyph:'10',title:'Quick drill',secs:['A','B','C'],sub:'10 random tap questions.'}
+];
+
+var root=document.getElementById('root');
+var reduce=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+var LET='ABCD';
+var STORE='ni-quiz-best-v1';
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function maxOf(q){return q.sec==='D'?2:1;}
+function sum(arr,k){return arr.reduce(function(a,r){return a+r[k];},0);}
+function byId(id){return BANK.filter(function(b){return b.id===id;})[0];}
+
+function loadBest(){try{return JSON.parse(localStorage.getItem(STORE)||'{}')||{};}catch(e){return {};}}
+var BEST=loadBest();
+function saveBest(mode,m,x){
+  var cur=BEST[mode];
+  if(!cur||m/x>cur.m/cur.x){
+    BEST[mode]={m:m,x:x};
+    try{localStorage.setItem(STORE,JSON.stringify(BEST));}catch(e){}
+  }
+}
+
+var S={screen:'home',shuffleQ:false,mode:null,title:'',pool:[],queue:[],i:0,res:[],picked:null,revealed:false,pts:[],text:'',quitArm:false};
+
+function info(m){
+  if(m.id==='drill')return{n:10,x:10};
+  var qs=BANK.filter(function(q){return m.secs.indexOf(q.sec)>-1;});
+  return{n:qs.length,x:qs.reduce(function(a,q){return a+maxOf(q);},0)};
+}
+
+function prep(q){
+  var o={};for(var k in q)o[k]=q[k];
+  if(q.type==='tf'){o.show=['True','False'];o.correctPos=q.ans;}
+  else if(q.type==='mc'||q.type==='fill'){
+    var order=shuffle(q.opts.map(function(_,i){return i;}));
+    o.show=order.map(function(i){return q.opts[i];});
+    o.correctPos=order.indexOf(q.ans);
+  }
+  return o;
+}
+
+function begin(pool,id,title){
+  S.mode=id;S.title=title;S.pool=pool;S.queue=pool.map(prep);
+  S.i=0;S.res=[];S.picked=null;S.revealed=false;S.pts=[];S.text='';S.quitArm=false;S.screen='quiz';
+  render();window.scrollTo(0,0);
+}
+function start(id){
+  var m=MODES.filter(function(x){return x.id===id;})[0];var pool;
+  if(id==='drill'){pool=shuffle(BANK.filter(function(q){return q.sec!=='D';})).slice(0,10);}
+  else{
+    pool=[];
+    m.secs.forEach(function(s){
+      var g=BANK.filter(function(q){return q.sec===s;});
+      pool=pool.concat(S.shuffleQ?shuffle(g):g);
+    });
+  }
+  begin(pool,id,m.title);
+}
+function redo(){
+  var ids=S.res.filter(function(r){return r.got<r.max;}).map(function(r){return r.id;});
+  begin(ids.map(byId),'redo','Missed questions');
+}
+
+function pick(pos){
+  if(S.picked!==null)return;
+  var q=S.queue[S.i];S.picked=pos;
+  S.res.push({id:q.id,sec:q.sec,got:pos===q.correctPos?1:0,max:1,pickedText:q.show[pos]});
+  render();
+}
+function reveal(){
+  var q=S.queue[S.i];
+  var ta=document.getElementById('sa');if(ta)S.text=ta.value;
+  S.revealed=true;S.pts=q.points.map(function(){return false;});
+  render();
+}
+function togglePt(i,b){
+  S.pts[i]=!S.pts[i];
+  b.setAttribute('aria-pressed',S.pts[i]?'true':'false');
+  var t=document.getElementById('tally');if(t)t.textContent=S.pts.filter(Boolean).length;
+}
+function next(){
+  var q=S.queue[S.i];
+  if(q.type==='short'){S.res.push({id:q.id,sec:q.sec,got:S.pts.filter(Boolean).length,max:2});}
+  S.i++;S.picked=null;S.revealed=false;S.pts=[];S.text='';
+  if(S.i>=S.queue.length){
+    S.screen='result';
+    if(S.mode!=='redo')saveBest(S.mode,sum(S.res,'got'),sum(S.res,'max'));
+  }
+  render();window.scrollTo(0,0);
+}
+function exitArm(b){
+  if(S.quitArm){S.quitArm=false;S.screen='home';render();window.scrollTo(0,0);return;}
+  S.quitArm=true;b.textContent='Leave?';
+  setTimeout(function(){
+    S.quitArm=false;
+    var x=document.querySelector('[data-act="exit"]');
+    if(x&&S.screen==='quiz')x.textContent='Exit';
+  },3000);
+}
+
+/* Screens */
+function home(){
+  var rows=MODES.map(function(m){
+    var i=info(m),b=BEST[m.id];
+    return '<li><button type="button" class="row" data-act="start" data-mode="'+m.id+'">'+
+      '<span class="glyph'+(m.glyph.length>1?' sm':'')+'">'+m.glyph+'</span>'+
+      '<span class="rt"><span class="t">'+m.title+'</span>'+
+      '<span class="s">'+i.n+' questions, '+i.x+' marks. '+m.sub+'</span>'+
+      (b?'<span class="b">Best score: '+b.m+' of '+b.x+'</span>':'')+
+      '</span></button></li>';
+  }).join('');
+  return '<main class="app">'+
+    '<header class="masthead">'+
+      '<p class="eyebrow">From your notes dated 7/10/2026</p>'+
+      '<h1>Nursing<br>Informatics</h1>'+
+      '<p class="deck">Tap an answer. You see your score straight away, with the reason.</p>'+
+    '</header>'+
+    '<div class="rule"></div>'+
+    '<ul class="toc">'+rows+
+      '<li><button type="button" class="switch-row" id="shuf" role="switch" data-act="shuffle" aria-checked="'+(S.shuffleQ?'true':'false')+'">'+
+        '<span class="st"><b>Shuffle question order</b><small>Good for a second try. Off keeps your notes order.</small></span>'+
+        '<span class="sw"><i></i></span></button></li>'+
+    '</ul>'+
+    '<section class="panel"><h3>Learn your acronyms</h3>'+
+      '<p>Your notes say Mrs Eko will ask them. This bank tests EHR and CDSS. Know what each letter stands for.</p></section>'+
+    '<section class="panel"><h3>How scoring works</h3><ul>'+
+      '<li>Each tap question is 1 mark.</li>'+
+      '<li>Each short answer is 2 marks.</li>'+
+      '<li>For short answers, you tap the points you got.</li>'+
+      '<li>The full test is 40 marks.</li></ul></section>'+
+  '</main>';
+}
+
+function tapBody(q){
+  var a=S.picked!==null,isTf=q.type==='tf';
+  var qt=q.type==='fill'
+    ? esc(q.q).replace('___','<span class="blank">'+(a?esc(q.opts[q.ans]):'&nbsp;')+'</span>')
+    : esc(q.q);
+  var opts=q.show.map(function(t,pos){
+    var cls='opt'+(isTf?' tf':''),tag='';
+    if(a){
+      if(pos===q.correctPos){cls+=' is-correct';tag=(pos===S.picked)?'Correct':'Answer';}
+      else if(pos===S.picked){cls+=' is-wrong';tag='Wrong';}
+      else cls+=' is-dim';
+    }
+    return '<button type="button" class="'+cls+'" data-act="pick" data-pos="'+pos+'">'+
+      '<span class="ltr">'+(isTf?'':LET[pos])+'</span>'+
+      '<span class="body"><span class="txt">'+esc(t)+'</span><span class="tag">'+tag+'</span></span></button>';
+  }).join('');
+  var fb='';
+  if(a){
+    var ok=S.picked===q.correctPos;
+    var right=(q.type==='mc'?LET[q.correctPos]+'. ':'')+esc(q.show[q.correctPos]);
+    fb='<section class="fb '+(ok?'good':'bad')+'" id="fb">'+
+      '<p class="verdict">'+(ok?'Correct. +1 mark':'Not quite. 0 marks')+'</p>'+
+      (ok?'':'<p class="right"><span class="lab">Right answer</span>'+right+'</p>')+
+      '<p class="why">'+esc(q.why)+'</p>'+
+      '<p class="ref">From your notes: '+esc(q.ref)+'</p></section>';
+  }
+  return '<h2 class="q">'+qt+'</h2><div class="opts'+(isTf?' two':'')+'" role="group" aria-label="Answer options">'+opts+'</div>'+fb;
+}
+
+function shortBody(q){
+  var r=S.revealed;
+  var h='<h2 class="q">'+esc(q.q)+'</h2>'+
+    '<label class="lab" for="sa">Your answer (optional)</label>'+
+    '<textarea id="sa" rows="5"'+(r?' readonly':'')+' placeholder="Write it here, or say it out loud first.">'+esc(S.text)+'</textarea>';
+  if(!r){
+    h+='<button type="button" class="btn ghost gap" data-act="reveal">Show marking points</button>';
+  }else{
+    var n=S.pts.filter(Boolean).length;
+    h+='<section class="mark" id="mark"><p class="lab">Model answer</p><p class="model">'+esc(q.model)+'</p>'+
+      '<p class="lab">Tap each point you got. 1 mark each.</p><div class="pts">'+
+      q.points.map(function(p,i){
+        return '<button type="button" class="pt" data-act="pt" data-i="'+i+'" aria-pressed="'+(S.pts[i]?'true':'false')+'">'+
+          '<span class="box"></span><span>'+esc(p)+'</span></button>';
+      }).join('')+
+      '</div><p class="tally">Your marks:<b id="tally">'+n+'</b>of 2</p>'+
+      '<p class="ref" style="margin-top:12px">From your notes: '+esc(q.ref)+'</p></section>';
+  }
+  return h;
+}
+
+function quiz(){
+  var q=S.queue[S.i],n=S.queue.length;
+  var got=sum(S.res,'got'),tried=sum(S.res,'max');
+  var answered=q.type==='short'?S.revealed:S.picked!==null;
+  var pct=Math.round((S.i+(answered?1:0))/n*100);
+  var last=S.i===n-1;
+  var m=maxOf(q);
+  return '<div class="topbar"><div class="in">'+
+      '<button type="button" class="exit" data-act="exit">'+(S.quitArm?'Leave?':'Exit')+'</button>'+
+      '<span class="count">Question '+(S.i+1)+' of '+n+'</span>'+
+      '<span class="score">Marks '+got+'/'+tried+'</span></div>'+
+      '<div class="progress"><i style="width:'+pct+'%"></i></div></div>'+
+    '<main class="app has-dock">'+
+      '<div class="qhead"><span class="num">'+(S.i+1)+'</span><div class="meta"><span>Section '+q.sec+'</span><span>'+SEC[q.sec].name+'</span><span>'+m+' mark'+(m>1?'s':'')+'</span></div></div>'+
+      (q.type==='short'?shortBody(q):tapBody(q))+
+    '</main>'+
+    '<div class="dock"'+(answered?'':' hidden')+'><div class="in"><button type="button" class="btn" data-act="next">'+(last?'See my score':'Next question')+'</button></div></div>';
+}
+
+function verdictFor(p){
+  if(p>=90)return 'Excellent. You know these notes well.';
+  if(p>=70)return 'Strong. Read the misses below once more.';
+  if(p>=50)return 'A pass. Go back to your notes on the misses, then redo them.';
+  return 'Not there yet. Read your notes again, then try a quick drill.';
+}
+
+function result(){
+  var got=sum(S.res,'got'),max=sum(S.res,'max');
+  var pct=max?Math.round(got/max*100):0;
+  var secs=['A','B','C','D'].filter(function(s){return S.res.some(function(r){return r.sec===s;});});
+  var bars=secs.map(function(s){
+    var rs=S.res.filter(function(r){return r.sec===s;});
+    var g=sum(rs,'got'),x=sum(rs,'max');
+    return '<li class="bar-row"><span class="bl">Section '+s+', '+SEC[s].name+'</span><span class="bv">'+g+'/'+x+'</span>'+
+      '<span class="track"><i style="width:'+(x?Math.round(g/x*100):0)+'%"></i></span></li>';
+  }).join('');
+  var missed=S.res.filter(function(r){return r.got<r.max;});
+  var list=missed.map(function(r){
+    var q=byId(r.id);
+    var qt=q.type==='fill'?esc(q.q).replace('___','______'):esc(q.q);
+    var tail;
+    if(q.type==='short'){
+      tail='<p class="you"><span class="lab">You got</span>'+r.got+' of 2</p><p class="ok"><span class="lab">Model answer</span>'+esc(q.model)+'</p>';
+    }else{
+      tail='<p class="you"><span class="lab">Your answer</span>'+esc(r.pickedText)+'</p><p class="ok"><span class="lab">Right answer</span>'+esc(q.opts[q.ans])+'</p>';
+    }
+    return '<li><p class="lab">Section '+q.sec+'</p><p class="mq">'+qt+'</p>'+tail+'</li>';
+  }).join('');
+  return '<main class="app"><div class="res">'+
+    '<p class="eyebrow">'+esc(S.title)+', results</p>'+
+    '<div class="bignum"><span class="n">'+got+'</span><span class="of">of '+max+'</span></div>'+
+    '<p class="pct">'+pct+' percent</p>'+
+    '<p class="vline">'+verdictFor(pct)+'</p>'+
+    '<h3>By section</h3><ul class="bars">'+bars+'</ul>'+
+    '<h3>'+(missed.length?'Missed or partly missed':'Nothing missed')+'</h3>'+
+    (missed.length?'<ul class="miss">'+list+'</ul>':'<p class="clean">Every mark is yours. Try the quick drill with shuffle on.</p>')+
+    '<div class="actions">'+
+      (missed.length?'<button type="button" class="btn" data-act="redo">Redo what I missed</button>':'')+
+      '<button type="button" class="btn ghost" data-act="again">Try this again</button>'+
+      '<button type="button" class="btn ghost" data-act="home">Back to the start</button>'+
+    '</div></div></main>';
+}
+
+function render(){
+  root.innerHTML=S.screen==='home'?home():S.screen==='quiz'?quiz():result();
+  if(S.screen==='quiz'){
+    var f=document.getElementById('fb')||document.getElementById('mark');
+    if(f&&f.scrollIntoView)f.scrollIntoView({block:'nearest',behavior:reduce?'auto':'smooth'});
+  }
+}
+
+root.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act]');if(!b)return;
+  var a=b.getAttribute('data-act');
+  if(a==='start')start(b.getAttribute('data-mode'));
+  else if(a==='shuffle'){S.shuffleQ=!S.shuffleQ;render();}
+  else if(a==='pick')pick(parseInt(b.getAttribute('data-pos'),10));
+  else if(a==='next')next();
+  else if(a==='reveal')reveal();
+  else if(a==='pt')togglePt(parseInt(b.getAttribute('data-i'),10),b);
+  else if(a==='exit')exitArm(b);
+  else if(a==='redo')redo();
+  else if(a==='again'){if(S.mode==='redo')begin(S.pool,'redo','Missed questions');else start(S.mode);}
+  else if(a==='home'){S.screen='home';render();window.scrollTo(0,0);}
+});
+root.addEventListener('input',function(e){if(e.target&&e.target.id==='sa')S.text=e.target.value;});
+
+render();
+})();
+</script>
+
+</body></html>
